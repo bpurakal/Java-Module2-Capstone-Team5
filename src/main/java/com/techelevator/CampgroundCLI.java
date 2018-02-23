@@ -27,6 +27,13 @@ public class CampgroundCLI {
 	private static final String[] PARK_INFORMATION = new String[] { PARK_INFORMATION_VIEW_CAMPGROUNDS,
 			PARK_INFORMATION_SEARCH_FOR_RESERVATION, PARK_INFORMATION_RETURN_TO_PREVIOUS_SCREEN };
 
+	// CAMPGROUND SCREEN
+	private static final String CAMPGROUND_AVAILABLE_RESERVATION_SEARCH = "Search for Available Reservation";
+	private static final String CAMPGROUND_RETURN_TO_PREVIOUS_SCREEN = "Return to Previous Screen";
+	private static final String[] CAMPGROUND_MENU_OPTIONS = new String[] { CAMPGROUND_AVAILABLE_RESERVATION_SEARCH, CAMPGROUND_RETURN_TO_PREVIOUS_SCREEN };
+
+
+	
 	private Menu menu;
 	private ParkDAO parkDAO;
 	private CampgroundDAO campgroundDAO;
@@ -61,11 +68,23 @@ public class CampgroundCLI {
 
 	private void handleSelectNationalPark() {
 		printHeading("Select a Park for Further Details");
+		
+		List<Object> allParks = parkDAO.getAllParks();
+		allParks.add("quit");
+		
+		Object selectedObject = (Object) menu.getChoiceFromOptions(allParks.toArray());
+		if(selectedObject.equals("quit")) {
+			System.exit(0);
+		}
+		Park selectedPark = (Park) selectedObject;
+		
+		handleNationalParkInfo(selectedPark);
 
+	}
+		
+private void handleNationalParkInfo(Park park) {
 
-		List<Park> allParks = parkDAO.getAllParks();
-		Park selectedPark = (Park) menu.getChoiceFromOptions(allParks.toArray());
-
+		Park selectedPark = park;
 		System.out.println(selectedPark.getName());
 		System.out.println(selectedPark.getLocation());
 		System.out.println(selectedPark.getEstablishedDate());
@@ -73,22 +92,33 @@ public class CampgroundCLI {
 		System.out.println(selectedPark.getAnnualVisitorCount());
 		System.out.println("\n" + selectedPark.getDescription()+"\n");
 		
+		
 		String choice = (String) menu.getChoiceFromOptions(PARK_INFORMATION);
 
 		if (choice.equals(PARK_INFORMATION_VIEW_CAMPGROUNDS)) {
 			handleViewCampgrounds(selectedPark);
 		} else if (choice.equals(PARK_INFORMATION_SEARCH_FOR_RESERVATION)) {
-			// handleDepartmentSearch();
+			// handleDepartmentSearch(); this is bonus
 		} else if (choice.equals(PARK_INFORMATION_RETURN_TO_PREVIOUS_SCREEN)) {
-			// handleDepartmentEmployeeList();
-
+			handleSelectNationalPark();
 		}
 	}
+	
+	
 	
 	private void handleViewCampgrounds(Park park) {
 		printHeading(park.getName() + " National Park Campgrounds");
 		List<Campground> allCampgrounds = campgroundDAO.getAllCampgrounds(park.getId().intValue());
 		listCampgrounds(allCampgrounds);
+		System.out.println("\nSelect a Command");
+
+		String choice = (String) menu.getChoiceFromOptions(CAMPGROUND_MENU_OPTIONS);
+
+		if (choice.equals(CAMPGROUND_AVAILABLE_RESERVATION_SEARCH)) {
+			//handleViewCampgrounds(selectedPark);
+		} else if (choice.equals(PARK_INFORMATION_RETURN_TO_PREVIOUS_SCREEN)) {
+			handleNationalParkInfo(park);
+		}
 	}
 
 	private void listParks(List<Park> parks) {
