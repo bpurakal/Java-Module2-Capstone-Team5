@@ -25,7 +25,7 @@ public class JDBCCampgroundDAO implements CampgroundDAO {
 	@Override
 	public List<Campground> searchForReservationAtAllCampsites(LocalDate wantedReservationDateStart,
 			LocalDate wantedReservationDateEnd) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub // bonus method
 		return null;
 	}
 	

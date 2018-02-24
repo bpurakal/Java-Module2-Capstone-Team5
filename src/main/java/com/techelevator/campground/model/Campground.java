@@ -54,9 +54,8 @@ public class Campground  extends Park  {
 		this.daily_fee = daily_fee;
 	}
 
-	public String toString() {
-		return this.name;
-		//return String.format("%-15s %-10s %-10s %-10s", name, getNumberToMonth(openMonth), getNumberToMonth(openTo), dailyFee);
+	public String toString(Campground campground) {
+		return String.format("%-15s %-10s %-10s %-10s", name, getNumberToMonth(campground.getOpen_from_mm()), getNumberToMonth(campground.getOpen_to_mm()), campground.getDaily_fee());
 		
 	}
 	
