@@ -135,11 +135,6 @@ public class CampgroundCLI {
 
 		List<Campground> allCampgrounds = campgroundDAO.getAllCampgrounds(park.getId().intValue());
 		listCampgrounds(allCampgrounds);
-
-		// List<Campsite> campsitesAvailable =
-		// campsiteDAO.getAvailableCampsites(parent_campground_id, arrivalDate,
-		// departureDate);
-		// listCampgrounds(allCampgrounds);
 		Scanner scan = new Scanner(System.in);
 		System.out.println("\n Which campground (enter 0 to cancel)? __");
 		Integer desiredCampgroundId = scan.nextInt();
@@ -147,9 +142,9 @@ public class CampgroundCLI {
 		if (desiredCampgroundId == 0) {
 			handleViewCampgrounds(park);
 		}
-		System.out.println("What is the arrival date? __/__/____");
+		System.out.println("What is the arrival date? mm/dd/yyyy" );
 		String desiredArrivalDateString = scan.nextLine();
-		System.out.println("What is the departure date? __/__/____");
+		System.out.println("What is the departure date? mm/dd/yyyy");
 		String desiredDepartureDateString = scan.nextLine();
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
