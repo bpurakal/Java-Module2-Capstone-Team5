@@ -170,7 +170,7 @@ public class CampgroundCLI {
 		if (campgrounds.size() > 0) {
 			System.out.printf("%-3s%-38s%-15s%-15s%-15s%n", " ", "Name", "Open", "Close", "Daily Fee");
 			for (Campground camp : campgrounds) {
-				System.out.printf("%-1s%-2d%-38s%-15s%-15s%1s%-15.2f%n", "#", camp.getId(), camp.getName(),
+				System.out.printf("%-1s%-4d%-38s%-15s%-15s%1s%-15.2f%n", "#", camp.getId(), camp.getName(),
 						camp.getNumberToMonth(camp.getOpen_from_mm()), camp.getNumberToMonth(camp.getOpen_to_mm()), "$",
 						camp.getDaily_fee());
 			}
